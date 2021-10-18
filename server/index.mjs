@@ -28,6 +28,7 @@ var options = {
 app.use("/", express.static('build', options))
 
 app.get('/api/cocktail/', getRandomCocktail)
+app.get('/api/cocktail/random', getRandomCocktail)
 app.get('/api/cocktail/search', query("q", "Invalid search query"), searchCocktailsByName)
 app.get('/api/cocktail/searchIngredient', query("q", "Invalid search query"), searchIngredientsByName)
 
