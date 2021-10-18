@@ -25,7 +25,16 @@ var options = {
     }
 }
 
-app.use("/", express.static('build', options))
+app.use("/cocktail/", express.static('build', options))
+
+app.get("/", (_, res) => {
+    res
+        .status(301)
+        .set({
+            "Location": "/cocktail/"
+        })
+        .send()
+})
 
 app.get('/api/cocktail/', getRandomCocktail)
 app.get('/api/cocktail/random', getRandomCocktail)

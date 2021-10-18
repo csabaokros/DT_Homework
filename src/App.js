@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 
+import { useEffect } from 'react';
+
 function App() {
   return (
     <div className="App">
@@ -11,7 +13,7 @@ function App() {
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="/"
           target="_blank"
           rel="noopener noreferrer"
         >
