@@ -1,6 +1,6 @@
 import fetch from "node-fetch"
 
-import { SEARCH_TYPE } from "../constants.mjs"
+import { SEARCH_TYPE, DATA_FILTERS } from "../constants.mjs"
 
 export const searchByName = type => async (req, res) => {
 
@@ -12,10 +12,14 @@ export const searchByName = type => async (req, res) => {
     try {
         console.info(`Fetching ${searchUrl}${searchQuery}`);
 
-        const fetchingRandomCocktail = fetch(searchUrl + searchQuery)
-        const cocktailResource = await fetchingRandomCocktail
-        const cocktail = await cocktailResource.json()
-        res.end(JSON.stringify(cocktail))
+        const fetchingSearchResults = fetch(searchUrl + searchQuery)
+        const resultResource = await fetchingSearchResults
+        const result = await resultResource.json()
+        res.end(
+            JSON.stringify(
+                DATA_FILTERS[type](result)
+            )
+        )
     } catch (err) {
         console.error(err);
         res.status(500).send()
