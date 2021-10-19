@@ -9,6 +9,7 @@ function App() {
 
   const handleSearch = async (e) => {
     e.preventDefault()
+    if(!searchQuery) return
     setCocktailList([])
     let drinks
     try {
@@ -36,26 +37,29 @@ function App() {
     })
   }
 
+  const getRandomCocktail = async () => {
+    setCocktailList([])
+    let drinks
+    try {
+      drinks = await fetchDataFromAPI("http://localhost:8080/api/cocktail/random")
+      setCocktailList(drinks)
+    } catch(err) {
+      console.error(err)
+      setCocktailList([])
+    }
+  }
+
   useEffect(() => {
-    (async () => {
-      let drinks
-      try {
-        drinks = await fetchDataFromAPI("http://localhost:8080/api/cocktail/random")
-        setCocktailList(drinks)
-      } catch(err) {
-        console.error(err)
-        setCocktailList([])
-      }
-    })()
+    getRandomCocktail()
   }, [])
-
-
 
   return (
     <main className="app">
       <div className="search">
         <form onSubmit={handleSearch}>
           <input type="text" placeholder="Search for a cocktail" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
+          <button type="submit" title="Look up a recipe">🔍</button>
+          <button type="button" title="I feel lucky!" onClick={getRandomCocktail}>🎲</button>
         </form>
       </div>
       {cocktailList.length === 0 && !fetchInProgress &&
