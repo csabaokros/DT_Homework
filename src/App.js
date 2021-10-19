@@ -38,6 +38,7 @@ function App() {
   }
 
   const getRandomCocktail = async () => {
+    setSearchQuery("")
     setCocktailList([])
     let drinks
     try {
