@@ -1,4 +1,5 @@
 export const filterCocktailData = ({ drinks }) => {
+    if (!drinks) return []
     return drinks.map(({ strDrink, strInstructions, strDrinkThumb, ...drink }) => {
 
         const currentDrink = { strDrink, strInstructions, strDrinkThumb }
